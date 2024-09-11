@@ -1,19 +1,14 @@
 import requests
 import json
 import os
+import sys
 
-#スケジュールテーブル
-headers = {
-    'X-Cybozu-API-Token': '2o42utiugLff8j1aYaJ5RXt9yvJEEQfgl6rpWNTi',
-}
+config_path = "/home/uuutomauuu/Desktop/conf/config.py"
+sys.path.append(os.path.dirname(config_path))
 
-params = {
-    'app': '35',
-}
+import config
 
-response = requests.get('https://eiflga3pibge.cybozu.com/k/v1/records.json', params=params, headers=headers)
-
-with open(schedule_path,"w",encoding="utf-8") as writeout:
-    json.dump(response.json(),indent=3,fp=writeout,ensure_ascii=False)
+with open(config.schedule_path,"w",encoding="utf-8") as writeout:
+    json.dump(config.response.json(),indent=3,fp=writeout,ensure_ascii=False)
 
 print("スケジュールテーブルを取得しました")
