@@ -7,6 +7,13 @@ import time
 import os
 from dotenv import load_dotenv
 import tkinter as tk
+import RPi.GPIO as GPIO
+
+# #MOTOR setup
+GPIO.cleanup()
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(14, GPIO.OUT)
+MOTOR = 14
 
 load_dotenv()
 
@@ -68,7 +75,10 @@ def all_actives():
 def start():
     print("pressed start")
     if all_actives():
-        print("OK")
+        print("all OK")
+        GPIO.output(MOTOR, GPIO.HIGH)
+        print("on")
+        time.sleep(3)
 
 #QRコードの読み取り関数
 def read_qr():
@@ -127,7 +137,10 @@ def read_qr():
 def stop():
     print("pressed stop")
     if all_actives():
-        print("OK")
+        print("all OK")
+        GPIO.output(MOTOR, GPIO.LOW )
+        print("off")
+        time.sleep(1)
 
 # 上部のラベル（QRよみとりかいし）
 label_top = tk.Label(root, text="QRよみとりかいし", font=("Arial", 14), bg='#DAD3CC', fg='black')
