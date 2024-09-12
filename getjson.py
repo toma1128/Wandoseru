@@ -1,14 +1,21 @@
 import requests
 import json
 import os
-import sys
+from dotenv import load_dotenv
 
-config_path = "/home/uuutomauuu/Desktop/conf/config.py"
-sys.path.append(os.path.dirname(config_path))
+load_dotenv()
 
-import config
+schedule_path = './json/schedule_result.json'
+headers = {
+    'X-Cybozu-API-Token': os.environ['TOKEN'],
+}
 
-with open(config.schedule_path,"w",encoding="utf-8") as writeout:
-    json.dump(config.response.json(),indent=3,fp=writeout,ensure_ascii=False)
+params = {
+    'app': os.environ['APP'],
+}
 
-print("スケジュールテーブルを取得しました")
+response = requests.get('https://dw13zrg8vath.cybozu.com/k/v1/records.json', params=params, headers=headers)
+with open(schedule_path,"w",encoding="utf-8") as writeout:
+    json.dump(response.json(),indent=3,fp=writeout,ensure_ascii=False)
+
+print("got json")
