@@ -2,91 +2,92 @@ import json
 import cv2
 from pyzbar.pyzbar import decode
 
-with open('./json/',"w",encoding="utf-8") as writeout:
-   json.dump(data,indent=3,fp=writeout,ensure_ascii=False)
+# with open('./json/',"w",encoding="utf-8") as writeout:
+#    json.dump(data,indent=3,fp=writeout,ensure_ascii=False)
 
-# # 入力データ
-# data = '''{
-#    "records": [
-#       {
-#          "subject_id": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "01"
-#          },
-#          "レコード番号": {
-#             "type": "RECORD_NUMBER",
-#             "value": "2"
-#          },
-#          "更新者": {
-#             "type": "MODIFIER",
-#             "value": {
-#                "code": "liuyixiaopu@gmail.com",
-#                "name": "小浦琉以"
-#             }
-#          },
-#          "作成者": {
-#             "type": "CREATOR",
-#             "value": {
-#                "code": "liuyixiaopu@gmail.com",
-#                "name": "小浦琉以"
-#             }
-#          },
-#          "belongings_name_lookup": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "national_language_text"
-#          },
-#          "belongings_id_lookup1": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "001"
-#          },
-#          "$revision": {
-#             "type": "__REVISION__",
-#             "value": "1"
-#          },
-#          "更新日時": {
-#             "type": "UPDATED_TIME",
-#             "value": "2024-09-10T07:01:00Z"
-#          },
-#          "belongings_id2": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "002"
-#          },
-#          "belongings_id3": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "003"
-#          },
-#          "belongings_id4": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "004"
-#          },
-#          "subject_name": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "national_language"
-#          },
-#          "belongings_name4": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "national_language_ondoku"
-#          },
-#          "作成日時": {
-#             "type": "CREATED_TIME",
-#             "value": "2024-09-10T07:01:00Z"
-#          },
-#          "belongings_name2": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "national_language_note"
-#          },
-#          "belongings_name3": {
-#             "type": "SINGLE_LINE_TEXT",
-#             "value": "national_language_Kanji"
-#          },
-#          "$id": {
-#             "type": "__ID__",
-#             "value": "2"
-#          }
-#       }
-#    ],
-#    "totalCount": null
-# }'''
+print("START")
+# 入力データ
+data = '''{
+   "records": [
+      {
+         "subject_id": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "01"
+         },
+         "レコード番号": {
+            "type": "RECORD_NUMBER",
+            "value": "2"
+         },
+         "更新者": {
+            "type": "MODIFIER",
+            "value": {
+               "code": "liuyixiaopu@gmail.com",
+               "name": "小浦琉以"
+            }
+         },
+         "作成者": {
+            "type": "CREATOR",
+            "value": {
+               "code": "liuyixiaopu@gmail.com",
+               "name": "小浦琉以"
+            }
+         },
+         "belongings_name_lookup": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "national_language_text"
+         },
+         "belongings_id_lookup1": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "001"
+         },
+         "$revision": {
+            "type": "__REVISION__",
+            "value": "1"
+         },
+         "更新日時": {
+            "type": "UPDATED_TIME",
+            "value": "2024-09-10T07:01:00Z"
+         },
+         "belongings_id2": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "002"
+         },
+         "belongings_id3": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "003"
+         },
+         "belongings_id4": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "004"
+         },
+         "subject_name": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "national_language"
+         },
+         "belongings_name4": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "national_language_ondoku"
+         },
+         "作成日時": {
+            "type": "CREATED_TIME",
+            "value": "2024-09-10T07:01:00Z"
+         },
+         "belongings_name2": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "national_language_note"
+         },
+         "belongings_name3": {
+            "type": "SINGLE_LINE_TEXT",
+            "value": "national_language_Kanji"
+         },
+         "$id": {
+            "type": "__ID__",
+            "value": "2"
+         }
+      }
+   ],
+   "totalCount": null
+}'''
 
 # JSONデータをパース
 records = json.loads(data)["records"]
@@ -104,7 +105,7 @@ def read_qr_code_from_camera():
     # カメラの初期化
     cap = cv2.VideoCapture(0)
     if not cap.isOpened():
-        print("カメラを開けませんでした")
+        print("cannot open camera")
         return
     while True:
         ret, frame = cap.read()
@@ -133,5 +134,8 @@ def read_qr_code_from_camera():
     cap.release()
     cv2.destroyAllWindows()
 
+print("ok")
+
 if __name__ == '__main__':
     read_qr_code_from_camera()
+    print("main start")
