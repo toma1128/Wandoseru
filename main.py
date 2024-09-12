@@ -55,17 +55,10 @@ for record in records:
                 belongings_pairs[value["value"]] = record[name_key]["value"]
 
 #画面設定
-# ボタンのスタイルを設定
-def create_button(master, text, bg_color, row, column, width, height, command):
-    button = tk.Button(master, text=text, font=("Arial", 12), bg=bg_color, relief="raised", bd=5, width=width, height=height, command=command)
-    button.grid(row=row, column=column, padx=10, pady=10, sticky="nsew")
-    return button
-
 # メインウィンドウの作成
 root = tk.Tk()
 root.title("QR読み取りかいし")
-root.geometry("600x400")  # 初期ウィンドウサイズ
-
+root.geometry("1024x600")  # 初期ウィンドウサイズ
 root.config(bg='#3D3535')  # 背景色
 
 def all_actives():
@@ -142,13 +135,30 @@ def stop():
         print("off")
         time.sleep(1)
 
+# ボタン作成関数（枠線をFrameで作成）
+def create_button(master, bg_color, x, y, width, height, comment, command):
+    # ボタンを包むフレームを作成し、白い枠線を追加
+    frame = tk.Frame(master, bg="white", bd=15)
+    frame.place(x=x, y=y, anchor="center")
+
+    # ボタンを作成し、フレーム内に配置
+    button = tk.Button(frame, text="", bg=bg_color, relief="raised", bd=5, 
+                       width=width, height=height, command=command)
+    button.pack()
+
+    # コメント用ラベルをボタンのすぐ下に配置
+    comment_label = tk.Label(master, text=comment, font=("Arial", 10, "bold"), fg="white", bg="#3A3A3A")
+    comment_label.place(x=x, y=y + 80, anchor="n")  # y + 45で少し下にずらす
+
+    return button
+
 # 上部のラベル（QRよみとりかいし）
 label_top = tk.Label(root, text="QRよみとりかいし", font=("Arial", 14), bg='#DAD3CC', fg='black')
 label_top.grid(row=0, column=0, columnspan=3, sticky="nsew", pady=10)
 
-btn_start = create_button(root, "スタート", "#0000FF", 1, 1, 8, 4, start)  # 緑色（スタートボタン）
-btn_read = create_button(root, "読み取り開始", "#00FF00", 2, 0, 8, 4, read_qr)  # 青色（読み取り開始ボタン）
-btn_stop = create_button(root, "ストップ", "#FF0000", 2, 2, 8, 4, stop)  # 赤色（ストップボタン）
+btn_start = create_button(root, "#0000FF", 350, 230, 16, 7,"スタート", start)  # 緑色（スタートボタン）
+btn_read = create_button(root, "#00FF00", 200, 450, 16, 7, "読み取り開始", read_qr)  # 青色（読み取り開始ボタン）
+btn_stop = create_button(root, "#FF0000", 500, 450, 16, 7, "ストップ", stop)  # 赤色（ストップボタン）
 
 # 右側のラベルの状態を変更する関数
 def change_color(label, status):
