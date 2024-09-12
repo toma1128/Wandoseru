@@ -47,7 +47,7 @@ def read_qr_code_from_camera():
     picam2.configure(config)
     picam2.start()
 
-    print("QRコードリーダーが起動しました。Ctrl+Cで終了します。")
+    print("QR START, Ctrl+C to END.")
 
     try:
         while True:
@@ -58,22 +58,22 @@ def read_qr_code_from_camera():
             decoded_objects = decode(frame)
             for obj in decoded_objects:
                 qr_code_data = obj.data.decode("utf-8")
-                print("\nQRコードを検出しました:")
+                print("\nQRcode got : ")
                 print("Type:", obj.type)
                 print("Data:", qr_code_data)
                 
                 # QRコードのIDをチェックして対応する belongings_name の値を取得
                 belongings_name_value = belongings_pairs.get(qr_code_data)
                 if belongings_name_value:
-                    print(f"ID {qr_code_data} に対応する belongings_name の値は: {belongings_name_value}")
+                    print(f"It was {qr_code_data} torespond to {belongings_name_value}")
                 else:
-                    print(f"ID {qr_code_data} に対応する belongings_name の値は見つかりませんでした。")
+                    print(f"ID {qr_code_data} not respondo to belongings_name")
 
             # 短い遅延を入れて、CPUの使用率を下げる
             time.sleep(0.1)
 
     except KeyboardInterrupt:
-        print("\nプログラムを終了します。")
+        print("\n end program")
     finally:
         # カメラを解放する
         picam2.stop()
