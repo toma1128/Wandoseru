@@ -71,7 +71,6 @@ def start():
         print("all OK")
         GPIO.output(MOTOR, GPIO.HIGH)
         print("on")
-        time.sleep(3)
 
 #QRコードの読み取り関数
 def read_qr():
@@ -133,7 +132,6 @@ def stop():
         print("all OK")
         GPIO.output(MOTOR, GPIO.LOW )
         print("off")
-        time.sleep(1)
 
 # ボタン作成関数（枠線をFrameで作成）
 def create_button(master, bg_color, x, y, width, height, comment, command):
