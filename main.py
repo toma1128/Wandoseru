@@ -159,7 +159,7 @@ def create_button(master, bg_color, x, y, width, height, comment, command):
 
     # コメント用ラベルをボタンのすぐ下に配置
     comment_label = tk.Label(master, text=comment, font=("Arial", 10, "bold"), fg="white", bg="#3A3A3A")
-    comment_label.place(x=x, y=y + 80, anchor="n")  # y + 45で少し下にずらす
+    comment_label.place(x=x, y=y + 100, anchor="n")  # 少し下にずらす
 
     return button
 
@@ -167,9 +167,9 @@ def create_button(master, bg_color, x, y, width, height, comment, command):
 label_top = tk.Label(root, text="QRよみとりかいし", font=("Arial", 14), bg='#DAD3CC', fg='black')
 label_top.place(x=512, y=35, anchor="n", width=550, height=50)
 
-btn_start = create_button(root, "#0000FF", 350, 230, 16, 7,"スタート", start)  # 緑色（スタートボタン）
-btn_read = create_button(root, "#00FF00", 200, 450, 16, 7, "読み取り開始", read_qr)  # 青色（読み取り開始ボタン）
-btn_stop = create_button(root, "#FF0000", 500, 450, 16, 7, "ストップ", stop)  # 赤色（ストップボタン）
+btn_start = create_button(root, "#0000FF", 350, 230, 13, 7,"スタート", start)  # 緑色（スタートボタン）
+btn_read = create_button(root, "#00FF00", 200, 450, 13, 7, "読み取り開始", read_qr)  # 青色（読み取り開始ボタン）
+btn_stop = create_button(root, "#FF0000", 500, 450, 13, 7, "ストップ", stop)  # 赤色（ストップボタン）
 
 # 右側のラベルの状態を変更する関数
 def change_color(label, status):
