@@ -58,8 +58,21 @@ for record in records:
 # メインウィンドウの作成
 root = tk.Tk()
 root.title("QR読み取りかいし")
+root.attributes('-fullscreen', True)
 root.geometry("1024x600")  # 初期ウィンドウサイズ
 root.config(bg='#3D3535')  # 背景色
+
+
+# フルスクリーンを解除する関数
+def toggle_fullscreen(event=None):
+    root.attributes("-fullscreen", not root.attributes("-fullscreen"))
+
+# ESCキーでフルスクリーンを切り替え
+root.bind('<Escape>', toggle_fullscreen)
+
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+root.geometry(f"{screen_width}x{screen_height}+0+0")
 
 def all_actives():
     return all(status == "active" for status in actives.values())
@@ -152,7 +165,7 @@ def create_button(master, bg_color, x, y, width, height, comment, command):
 
 # 上部のラベル（QRよみとりかいし）
 label_top = tk.Label(root, text="QRよみとりかいし", font=("Arial", 14), bg='#DAD3CC', fg='black')
-label_top.grid(row=0, column=0, columnspan=3, sticky="nsew", pady=10)
+label_top.place(x=512, y=35, anchor="n", width=550, height=50)
 
 btn_start = create_button(root, "#0000FF", 350, 230, 16, 7,"スタート", start)  # 緑色（スタートボタン）
 btn_read = create_button(root, "#00FF00", 200, 450, 16, 7, "読み取り開始", read_qr)  # 青色（読み取り開始ボタン）
@@ -166,10 +179,11 @@ def change_color(label, status):
         label.config(bg="#F0ECE2")  # デフォルトの灰色
 
 i = 1
+y = [160, 265, 370, 475]
 
 for qr_id, text in belongings_pairs.items():
     label = tk.Label(root, text=text, font=("Arial", 12), bg="#F0ECE2", relief="raised", bd=5)
-    label.grid(row=i, column=3, padx=10, pady=10, sticky="nsew")
+    label.place(x=850, y=y[i-1], anchor="n", width=200, height=70)
     labels.append(label)
     actives[qr_id] = "inactive"
     i+=1
@@ -178,16 +192,6 @@ for qr_id, text in belongings_pairs.items():
 for i, (qr_id, name) in enumerate(belongings_pairs.items()):
     status = actives.get(qr_id, "inactive")
     change_color(labels[i], status)
-
-# メインウィンドウの列と行のリサイズ設定
-root.grid_columnconfigure(0, weight=1)
-root.grid_columnconfigure(1, weight=1)
-root.grid_columnconfigure(2, weight=1)
-root.grid_columnconfigure(3, weight=1)
-root.grid_rowconfigure(1, weight=1)
-root.grid_rowconfigure(2, weight=1)
-root.grid_rowconfigure(3, weight=1)
-root.grid_rowconfigure(4, weight=1)
 
 if __name__ == '__main__':
     root.mainloop()
